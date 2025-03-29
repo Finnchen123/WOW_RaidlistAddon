@@ -1,0 +1,11 @@
+## Interface: 80250
+## Title: Raidlist addon
+## Notes: Addon for keeping track of finished Raids. Contains all raids up to BfA
+## Version: 0.2
+
+Raidlist.lua
+Raids.lua
+Difficulties.lua
+Frames/DisplayFrame.lua
+Frames/ScrollFrame.lua
+MinimapButton.lua
