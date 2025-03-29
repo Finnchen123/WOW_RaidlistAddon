@@ -47,7 +47,6 @@ function UpdateData()
         --Display different things depending on results
         for j = 1, #finishedDifficulties, 1 do
             data[i][GetDifficultyByID(finishedDifficulties[j], Difficulties)+1] = Color_Green:WrapTextInColorCode("Y")
-            print(data[i][1] .. GetDifficultyByID(finishedDifficulties[j], Difficulties)+1)
         end
 
         for j = 1, #blockedDifficulties, 1 do
