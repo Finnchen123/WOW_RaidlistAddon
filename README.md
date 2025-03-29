@@ -9,7 +9,7 @@ Go to releases and download the latest .zip archive from the release. Extract th
 # How it works / How to use
 This addon refreshes the list on each change in location/area. It then checks your finished raids, updates the list and shows you the current availability:
 
-Y (Green): You finished this raid already on this difficulty
-B (Blue): You finished the raid on another difficulty and this difficulty is now blocked
-N (Red): You didn't finish the raid on this difficulty
+Y (Green): You finished this raid already on this difficulty \
+B (Blue): You finished the raid on another difficulty and this difficulty is now blocked \
+N (Red): You didn't finish the raid on this difficulty \
 \- (Grey): This difficulty is not available for this raid
