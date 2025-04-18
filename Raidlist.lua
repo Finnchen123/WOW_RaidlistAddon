@@ -2,6 +2,7 @@ FinishedRaids = {}
 
 SLASH_RAIDLIST1 = "/raidlist"
 UsedLanguage = "en"
+AvailableLanguages = {"en", "de"}
 
 Color_Red = CreateColorFromHexString("FFFF0000")
 Color_Green = CreateColorFromHexString("FF00FF00")
@@ -12,6 +13,7 @@ function HandleCommand()
         DisplayFrame:Hide()
     else
         UpdateData()
+        UIDropDownMenu_SetText(LanguageSelection, UsedLanguage)
         DisplayFrame:Show()
     end
 end

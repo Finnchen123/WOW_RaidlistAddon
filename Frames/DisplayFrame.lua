@@ -34,6 +34,7 @@ DisplayFrame:SetScript("OnEvent", function(self, event, ...)
                 }
             end
         end
+        UIDropDownMenu_SetText(LanguageSelection, UsedLanguage)
     end
 end)
 
@@ -46,3 +47,25 @@ DisplayFrame.Text:SetPoint("CENTER")
 DisplayFrame.Text:SetJustifyH("LEFT")
 DisplayFrame.Text:SetJustifyV("TOP")
 DisplayFrame:Hide()
+
+LanguageSelection = CreateFrame("Frame", "Raidlist_LanguageDropdown", DisplayFrame, "UIDropDownMenuTemplate")
+LanguageSelection:SetPoint("TOPLEFT", 0, -25)
+UIDropDownMenu_SetWidth(LanguageSelection, 150)
+UIDropDownMenu_SetText(LanguageSelection, UsedLanguage)
+
+UIDropDownMenu_Initialize(LanguageSelection, function(self, level, menuList)
+    local info = UIDropDownMenu_CreateInfo()
+    for i=1, #AvailableLanguages do
+        info.text, info.arg1, info.checked = AvailableLanguages[i], AvailableLanguages[i], AvailableLanguages[i] == UsedLanguage
+        info.func = self.SetValue
+        UIDropDownMenu_AddButton(info)
+    end
+end)
+
+
+function LanguageSelection:SetValue(newValue)
+    UsedLanguage = newValue
+    UIDropDownMenu_SetText(LanguageSelection, newValue)
+    CloseDropDownMenus()
+    UpdateData()
+end

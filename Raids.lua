@@ -366,5 +366,29 @@ AllRaids = {
             de = "Ny'alotha, die Erwachte Stadt"
         },
         Difficulties = {14, 15, 16, 17}
+    },
+    {
+        InstanceID = 2296,
+        Names = {
+            en = "Castle Nathria",
+            de = "Schloss Nathria"
+        },
+        Difficulties = {14, 15, 16, 17}
+    },
+    {
+        InstanceID = 2450,
+        Names = {
+            en = "Sanctum of Domination",
+            de = "Sanktum der Herrschaft"
+        },
+        Difficulties = {14, 15, 16, 17}
+    },
+    {
+        InstanceID = 2481,
+        Names = {
+            en = "Sepulcher of the First Ones",
+            de = "Mausoleum der Ersten"
+        },
+        Difficulties = {14, 15, 16, 17}
     }
 }
