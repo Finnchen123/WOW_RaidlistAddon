@@ -17,7 +17,18 @@ DisplayFrame.scrollFrame:SetScrollChild(DisplayFrame.scrollFrame.scrollChild)
 local content = DisplayFrame.scrollFrame.scrollChild
 content.rows = {} -- each row of data is one wide button stored here
 
+function calculateWidth(data)
+    local longestString = 0
+    for i = 1, #data, 1 do
+        if string.len(data[i][1]) > longestString then
+            longestString = string.len(data[i][1])
+        end
+    end
+    CELL_WIDTH_NAME = longestString * 6
+end
+
 function UpdateList(data)
+    calculateWidth(data)
     for i = 1, #data, 1 do
         -- create a row if not created yet (buttons[i] is a whole row; buttons[i].columns[j] are columns)
         if not content.rows[i] then

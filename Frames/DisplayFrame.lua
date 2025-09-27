@@ -52,6 +52,7 @@ LanguageSelection = CreateFrame("Frame", "Raidlist_LanguageDropdown", DisplayFra
 LanguageSelection:SetPoint("TOPLEFT", 0, -25)
 UIDropDownMenu_SetWidth(LanguageSelection, 150)
 UIDropDownMenu_SetText(LanguageSelection, UsedLanguage)
+LanguageSelection:SetFrameLevel(10)
 
 UIDropDownMenu_Initialize(LanguageSelection, function(self, level, menuList)
     local info = UIDropDownMenu_CreateInfo()

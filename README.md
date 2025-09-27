@@ -1,7 +1,7 @@
 # What this addon is about
 This addon keeps track of the raids you currently have a lock in. It gives you an overview of which raid you already finished at which difficulty, what other difficulties there are and which ones are blocked.
 
-It only works for Retail and contains all the raids up to Shadowlands. This is due to the addon being developed for the purpose of Transmog and Mount runs in old raids.
+It only works for Retail and contains all the raids up to Dragonflight. This is due to the addon being developed for the purpose of Transmog and Mount runs in old raids.
 
 # What does this addon contain?
 This addon contains the following element(s):

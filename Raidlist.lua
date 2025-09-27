@@ -22,6 +22,9 @@ function UpdateData()
     local data = {}
     local finishedDifficulties
     local blockedDifficulties
+    -- Debug Info for Raid testing
+    -- local name, instanceType, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, LfgDungeonID = GetInstanceInfo()
+    -- print(instanceID)
 
     -- Iterate over all raids
     for i = 1, #AllRaids, 1 do
@@ -68,9 +71,8 @@ function UpdateData()
                 end
             end
         end
-
-        UpdateList(data)
     end
+    UpdateList(data)
 end
 
 function GetDifficultyByID(id, list)

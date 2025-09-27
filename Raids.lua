@@ -390,5 +390,29 @@ AllRaids = {
             de = "Mausoleum der Ersten"
         },
         Difficulties = {14, 15, 16, 17}
+    },
+    {
+        InstanceID = 2522,
+        Names = {
+            en = "Vault of the Incarnates",
+            de = "Gewölbe der Inkarnationen"
+        },
+        Difficulties = {14, 15, 16, 17}
+    },
+    {
+        InstanceID = 2569,
+        Names = {
+            en = "Aberrus, the Shadowed Crucible",
+            de = "Aberrus, Schmelztiegel der Schatten"
+        },
+        Difficulties = {14, 15, 16, 17}
+    },
+    {
+        InstanceID = 2549,
+        Names = {
+            en = "Amirdrassil, the Dream's Hope",
+            de = "Amirdrassil, Hoffnung des Traums"
+        },
+        Difficulties = {14, 15, 16, 17}
     }
 }
