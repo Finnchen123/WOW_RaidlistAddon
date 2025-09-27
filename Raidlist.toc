@@ -1,7 +1,7 @@
 ## Interface: 80250
 ## Title: Raidlist addon
-## Notes: Addon for keeping track of finished Raids. Contains all raids up to Shadowlands
-## Version: 0.3
+## Notes: Addon for keeping track of finished Raids. Contains all raids up to Dragonflight
+## Version: 0.4
 ## SavedVariablesPerCharacter: UsedLanguage
 
 Raidlist.lua
