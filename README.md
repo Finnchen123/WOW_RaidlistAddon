@@ -7,7 +7,8 @@ It only works for Retail and contains all the raids up to Dragonflight. This is 
 This addon contains the following element(s):
 - A raidlist overview which can be opened with
   - the "/raidlist" command
-  - the minimap button (The button starts at the center of the minimap. After moving it once it stays at the position you left it at)
+    - Including an "options" or "settings" parameter to open up the settings (/raidlist options)
+  - A selection option in the new addons compartment (Below the calendar icon in the top right corner)
 
 # How to install
 Go to releases and download the latest .zip archive from the release. Extract the content of the .zip file into your addons folder.
@@ -15,7 +16,7 @@ Go to releases and download the latest .zip archive from the release. Extract th
 # How it works / How to use
 This addon refreshes the list on each change in location/area. It then checks your finished raids, updates the list and shows you the current availability:
 
-Y (Green): You finished this raid already on this difficulty \
-B (Blue): You finished the raid on another difficulty and this difficulty is now blocked \
-N (Red): You didn't finish the raid on this difficulty \
+Green: You finished this raid already on this difficulty \
+Blue: You finished the raid on another difficulty and this difficulty is now blocked \
+Red: You didn't finish the raid on this difficulty \
 \- (Grey): This difficulty is not available for this raid
