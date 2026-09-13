@@ -259,7 +259,7 @@ AllRaids = {
         InstanceID = 1136,
         Names = {
             en = "Siege of Orgrimmar",
-            de = "Schlach um Orgrimmar"
+            de = "Schlacht um Orgrimmar"
         },
         Difficulties = {14, 15, 16, 17}
     },

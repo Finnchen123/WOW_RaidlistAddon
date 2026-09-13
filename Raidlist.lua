@@ -1,8 +1,6 @@
 FinishedRaids = {}
 
 SLASH_RAIDLIST1 = "/raidlist"
-UsedLanguage = "en"
-AvailableLanguages = {"en", "de"}
 
 Color_Red = CreateColorFromHexString("FFFF0000")
 Color_Green = CreateColorFromHexString("FF00FF00")
@@ -12,8 +10,16 @@ function HandleCommand()
     if DisplayFrame:IsShown() then
         DisplayFrame:Hide()
     else
-        UpdateData()
-        UIDropDownMenu_SetText(LanguageSelection, UsedLanguage)
+        local successInfo, resultInfo = pcall(RequestRaidInfo)
+        local successData, resultData = pcall(UpdateData)
+
+        if not successInfo then
+            RaidlistLogger:Error(resultInfo)
+        end
+
+        if not successData then
+            RaidlistLogger:Error(resultData)
+        end
         DisplayFrame:Show()
     end
 end
@@ -107,4 +113,15 @@ function IsInList(id, list)
     return result
 end
 
-SlashCmdList["RAIDLIST"] = HandleCommand
+SlashCmdList["RAIDLIST"] = function(msg)
+    msg = string.lower(msg or "")
+
+    RaidlistLogger:Error(msg)
+
+    if msg == "options" or msg == "settings" then
+        Settings.OpenToCategory(RaidlistSettingsCategory:GetID())
+        return
+    end
+
+    HandleCommand()
+end

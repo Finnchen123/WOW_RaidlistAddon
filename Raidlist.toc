@@ -1,12 +1,14 @@
-## Interface: 80250
+## Interface: 120100
 ## Title: Raidlist addon
 ## Notes: Addon for keeping track of finished Raids. Contains all raids up to Dragonflight
-## Version: 0.4
-## SavedVariablesPerCharacter: UsedLanguage
+## Version: 1.3.0
+## SavedVariablesPerCharacter: RaidlistSettings
 
-Raidlist.lua
+Logger.lua
 Raids.lua
 Difficulties.lua
 Frames/DisplayFrame.lua
 Frames/ScrollFrame.lua
 MinimapButton.lua
+Options.lua
+Raidlist.lua
