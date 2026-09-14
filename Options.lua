@@ -1,5 +1,7 @@
 local addonName, Raidlist = ...
 
+local Vendor = Raidlist
+
 local isGerman =
     GetLocale() == "deDE"
 
@@ -29,7 +31,7 @@ local text = {
 
     expansionDescription = isGerman
         and "Legt fest, aus welcher Erweiterung Ausrüstungsgegenstände automatisch verkauft werden dürfen."
-        or "Determines which expansion equipment items may be sold automatically.",
+        or "Determines which expansion equipment items may be sold automatically."
 }
 
 
@@ -141,6 +143,22 @@ do
             defaultValue
         )
 
+    setting:SetValueChangedCallback(
+        function(_, value)
+            RaidlistDB.showVendorButton =
+                value
+
+            C_Timer.After(
+                0,
+                function()
+                    if Vendor.UpdateVendorButton then
+                        Vendor:UpdateVendorButton()
+                    end
+                end
+            )
+        end
+    )
+
     Settings.CreateCheckbox(
         category,
         setting,
@@ -185,6 +203,22 @@ do
             text.expansionLabel,
             defaultValue
         )
+
+    setting:SetValueChangedCallback(
+        function(_, value)
+            RaidlistDB.sellableExpansionID =
+                value
+
+            C_Timer.After(
+                0,
+                function()
+                    if Vendor.UpdateVendorButton then
+                        Vendor:UpdateVendorButton()
+                    end
+                end
+            )
+        end
+    )
 
     Settings.CreateDropdown(
         category,

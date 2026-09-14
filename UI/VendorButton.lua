@@ -12,6 +12,7 @@ local BUTTON_TEXT_EMPTY =
 local BUTTON_TEXT_SELLING =
     "Verkaufe..."
 
+
 local vendorButton =
     CreateFrame(
         "Button",
@@ -42,6 +43,7 @@ vendorButton:RegisterForClicks(
     "LeftButtonUp"
 )
 
+
 vendorButton:SetScript(
     "OnEnter",
     function(self)
@@ -71,7 +73,9 @@ vendorButton:SetScript(
                 Vendor:GetSellableItemsValue()
 
             if totalValue > 0 then
-                GameTooltip:AddLine(" ")
+                GameTooltip:AddLine(
+                    " "
+                )
 
                 GameTooltip:AddLine(
                     "Händlerwert: "
@@ -99,6 +103,7 @@ vendorButton:SetScript(
     end
 )
 
+
 vendorButton:SetScript(
     "OnLeave",
     function()
@@ -106,14 +111,17 @@ vendorButton:SetScript(
     end
 )
 
+
 function Vendor:UpdateVendorButton()
-    if not MerchantFrame:IsShown() then
+    if not MerchantFrame
+        or not MerchantFrame:IsShown()
+    then
         vendorButton:Hide()
         return
     end
 
     if not RaidlistDB
-        or not RaidlistDB.showVendorButton
+        or RaidlistDB.showVendorButton ~= true
     then
         vendorButton:Hide()
         return
@@ -152,6 +160,7 @@ function Vendor:UpdateVendorButton()
     end
 end
 
+
 vendorButton:SetScript(
     "OnClick",
     function(_, button)
@@ -175,16 +184,32 @@ vendorButton:SetScript(
     end
 )
 
+
+MerchantFrame:HookScript(
+    "OnShow",
+    function()
+        C_Timer.After(
+            0,
+            function()
+                Vendor:UpdateVendorButton()
+            end
+        )
+    end
+)
+
+
+MerchantFrame:HookScript(
+    "OnHide",
+    function()
+        GameTooltip:Hide()
+
+        vendorButton:Hide()
+    end
+)
+
+
 local eventFrame =
     CreateFrame("Frame")
-
-eventFrame:RegisterEvent(
-    "MERCHANT_SHOW"
-)
-
-eventFrame:RegisterEvent(
-    "MERCHANT_CLOSED"
-)
 
 eventFrame:RegisterEvent(
     "BAG_UPDATE_DELAYED"
@@ -193,26 +218,18 @@ eventFrame:RegisterEvent(
 eventFrame:SetScript(
     "OnEvent",
     function(_, event)
-        if event == "MERCHANT_SHOW" then
-            Vendor:UpdateVendorButton()
-
+        if event ~= "BAG_UPDATE_DELAYED" then
             return
         end
 
-        if event == "MERCHANT_CLOSED" then
-            GameTooltip:Hide()
-
+        if not MerchantFrame:IsShown() then
             return
         end
 
-        if event == "BAG_UPDATE_DELAYED" then
-            if MerchantFrame:IsShown()
-                and not Vendor.IsSellingItems
-            then
-                Vendor:UpdateVendorButton()
-            end
-
+        if Vendor.IsSellingItems then
             return
         end
+
+        Vendor:UpdateVendorButton()
     end
 )

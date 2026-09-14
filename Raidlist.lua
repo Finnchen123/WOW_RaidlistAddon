@@ -14,13 +14,8 @@ for _, difficulty in ipairs(Raidlist.Difficulties) do
 end
 
 
--- ============================================================
--- Saved Variables
--- ============================================================
-
 RaidlistDB = RaidlistDB or {}
 
--- Migration from the old standalone SavedVariable.
 if RaidlistDB.language == nil then
     RaidlistDB.language = UsedLanguage or "en"
 end
@@ -29,14 +24,16 @@ if RaidlistDB.showErrorsInChat == nil then
     RaidlistDB.showErrorsInChat = false
 end
 
--- Old variable is no longer used.
--- It remains in the TOC for one migration release.
+if RaidlistDB.showVendorButton == nil then
+    RaidlistDB.showVendorButton = false
+end
+
+if RaidlistDB.sellableExpansionID == nil then
+    RaidlistDB.sellableExpansionID = 9
+end
+
 UsedLanguage = nil
 
-
--- ============================================================
--- Localization
--- ============================================================
 
 Raidlist.Strings = {
     en = {
@@ -53,7 +50,6 @@ Raidlist.Strings = {
 
         compartmentTooltip = "Open Raidlist",
         compartmentTooltipDescription = "Shows your old raid lockouts.",
-
         slashHelp = "Use /raidlist to open Raidlist or /raidlist options for the settings."
     },
 
@@ -105,10 +101,6 @@ function Raidlist:SetLanguage(language)
 end
 
 
--- ============================================================
--- Saved raid lockouts
--- ============================================================
-
 function Raidlist:RefreshSavedRaids()
     wipe(self.FinishedRaids)
 
@@ -128,10 +120,13 @@ function Raidlist:RefreshSavedRaids()
               _,
               _,
               _,
-              instanceID = GetSavedInstanceInfo(index)
+              instanceID =
+            GetSavedInstanceInfo(index)
 
         if locked and isRaid and instanceID then
-            self.FinishedRaids[#self.FinishedRaids + 1] = {
+            self.FinishedRaids[
+                #self.FinishedRaids + 1
+            ] = {
                 InstanceID = instanceID,
                 DifficultyID = difficultyID
             }
@@ -140,12 +135,20 @@ function Raidlist:RefreshSavedRaids()
 end
 
 
-function Raidlist:GetFinishedDifficulties(instanceID)
+function Raidlist:GetFinishedDifficulties(
+    instanceID
+)
     local result = {}
 
-    for _, finishedRaid in ipairs(self.FinishedRaids) do
-        if finishedRaid.InstanceID == instanceID then
-            result[finishedRaid.DifficultyID] = true
+    for _, finishedRaid in ipairs(
+        self.FinishedRaids
+    ) do
+        if finishedRaid.InstanceID
+            == instanceID
+        then
+            result[
+                finishedRaid.DifficultyID
+            ] = true
         end
     end
 
@@ -153,85 +156,120 @@ function Raidlist:GetFinishedDifficulties(instanceID)
 end
 
 
--- ============================================================
--- Raid list data
--- ============================================================
-
 function Raidlist:GetRaidRows()
     local rows = {}
-    local language = self:GetLanguage()
 
-    for index, raid in ipairs(self.Raids) do
+    local language =
+        self:GetLanguage()
+
+    for index, raid in ipairs(
+        self.Raids
+    ) do
         local finishedDifficulties =
-            self:GetFinishedDifficulties(raid.InstanceID)
+            self:GetFinishedDifficulties(
+                raid.InstanceID
+            )
 
         local blockedDifficulties = {}
         local supportedDifficulties = {}
 
-        for _, difficultyID in ipairs(raid.Difficulties) do
-            supportedDifficulties[difficultyID] = true
+        for _, difficultyID in ipairs(
+            raid.Difficulties
+        ) do
+            supportedDifficulties[
+                difficultyID
+            ] = true
         end
 
-        -- Determine which difficulties are blocked by an
-        -- already completed difficulty.
-        for difficultyID in pairs(finishedDifficulties) do
+        for difficultyID in pairs(
+            finishedDifficulties
+        ) do
             local difficulty =
-                self.DifficultyByID[difficultyID]
+                self.DifficultyByID[
+                    difficultyID
+                ]
 
             if difficulty then
-                for _, blockedID in ipairs(difficulty.Blocking) do
-                    blockedDifficulties[blockedID] = true
+                for _, blockedID in ipairs(
+                    difficulty.Blocking
+                ) do
+                    blockedDifficulties[
+                        blockedID
+                    ] = true
                 end
             else
                 self.Logger:Error(
                     "Unknown difficulty ID: "
-                    .. tostring(difficultyID)
+                    .. tostring(
+                        difficultyID
+                    )
                 )
             end
         end
 
         local row = {
             index = index,
+
             raidName =
                 raid.Names[language]
                 or raid.Names.en
-                or ("Instance " .. tostring(raid.InstanceID)),
+                or (
+                    "Instance "
+                    .. tostring(
+                        raid.InstanceID
+                    )
+                ),
 
-            instanceID = raid.InstanceID,
+            instanceID =
+                raid.InstanceID,
 
             statuses = {}
         }
 
-        for _, difficulty in ipairs(self.Difficulties) do
-            local difficultyID = difficulty.ID
+        for _, difficulty in ipairs(
+            self.Difficulties
+        ) do
+            local difficultyID =
+                difficulty.ID
+
             local status
 
-            if not supportedDifficulties[difficultyID] then
-                status = "unavailable"
+            if not supportedDifficulties[
+                difficultyID
+            ] then
+                status =
+                    "unavailable"
 
-            elseif finishedDifficulties[difficultyID] then
-                status = "finished"
+            elseif finishedDifficulties[
+                difficultyID
+            ] then
+                status =
+                    "finished"
 
-            elseif blockedDifficulties[difficultyID] then
-                status = "blocked"
+            elseif blockedDifficulties[
+                difficultyID
+            ] then
+                status =
+                    "blocked"
 
             else
-                status = "available"
+                status =
+                    "available"
             end
 
-            row.statuses[difficultyID] = status
+            row.statuses[
+                difficultyID
+            ] = status
         end
 
-        rows[#rows + 1] = row
+        rows[
+            #rows + 1
+        ] = row
     end
 
     return rows
 end
 
-
--- ============================================================
--- UI control
--- ============================================================
 
 function Raidlist:RefreshUI()
     if not self.UI then
@@ -252,64 +290,74 @@ function Raidlist:Toggle()
         return
     end
 
-    -- Use the currently cached values immediately...
     self:RefreshSavedRaids()
     self:RefreshUI()
 
-    -- ...and request fresh server data afterwards.
     RequestRaidInfo()
 
     self.UI:Show()
 end
 
 
--- ============================================================
--- Slash commands
--- ============================================================
+SLASH_RAIDLIST1 =
+    "/raidlist"
 
-SLASH_RAIDLIST1 = "/raidlist"
+SlashCmdList["RAIDLIST"] =
+    function(message)
+        message =
+            strtrim(
+                string.lower(
+                    message or ""
+                )
+            )
 
-SlashCmdList["RAIDLIST"] = function(message)
-    message = strtrim(string.lower(message or ""))
+        if message == "options"
+            or message == "option"
+            or message == "settings"
+        then
+            if Raidlist.OpenSettings then
+                Raidlist:OpenSettings()
+            end
 
-    if message == "options"
-        or message == "option"
-        or message == "settings"
-    then
-        if Raidlist.OpenSettings then
-            Raidlist:OpenSettings()
+            return
         end
 
-        return
+        if message == "help" then
+            print(
+                "|cff4ea1ff[Raidlist]|r "
+                .. Raidlist:GetText(
+                    "slashHelp"
+                )
+            )
+
+            return
+        end
+
+        Raidlist:Toggle()
     end
 
-    if message == "help" then
-        print(
-            "|cff4ea1ff[Raidlist]|r "
-            .. Raidlist:GetText("slashHelp")
-        )
 
-        return
-    end
-
+function Raidlist_OnAddonCompartmentClick(
+    _,
+    _
+)
     Raidlist:Toggle()
 end
 
 
--- ============================================================
--- Addon Compartment
--- ============================================================
-
-function Raidlist_OnAddonCompartmentClick(_, _)
-    Raidlist:Toggle()
-end
-
-
-function Raidlist_OnAddonCompartmentEnter(_, menuButtonFrame)
-    GameTooltip:SetOwner(menuButtonFrame, "ANCHOR_LEFT")
+function Raidlist_OnAddonCompartmentEnter(
+    _,
+    menuButtonFrame
+)
+    GameTooltip:SetOwner(
+        menuButtonFrame,
+        "ANCHOR_LEFT"
+    )
 
     GameTooltip:SetText(
-        Raidlist:GetText("compartmentTooltip")
+        Raidlist:GetText(
+            "compartmentTooltip"
+        )
     )
 
     GameTooltip:AddLine(
@@ -330,33 +378,40 @@ function Raidlist_OnAddonCompartmentLeave()
 end
 
 
--- ============================================================
--- Events
--- ============================================================
+local eventFrame =
+    CreateFrame("Frame")
 
-local eventFrame = CreateFrame("Frame")
+eventFrame:RegisterEvent(
+    "PLAYER_LOGIN"
+)
 
-eventFrame:RegisterEvent("PLAYER_LOGIN")
-eventFrame:RegisterEvent("UPDATE_INSTANCE_INFO")
+eventFrame:RegisterEvent(
+    "UPDATE_INSTANCE_INFO"
+)
 
+eventFrame:SetScript(
+    "OnEvent",
+    function(_, event)
+        if event == "PLAYER_LOGIN" then
+            Raidlist:RefreshSavedRaids()
 
-eventFrame:SetScript("OnEvent", function(_, event)
-    if event == "PLAYER_LOGIN" then
-        Raidlist:RefreshSavedRaids()
+            if Raidlist.Logger then
+                Raidlist.Logger:
+                    InstallErrorHandler()
+            end
 
-        if Raidlist.Logger then
-            Raidlist.Logger:InstallErrorHandler()
-        end
+            RequestRaidInfo()
 
-        RequestRaidInfo()
-
-    elseif event == "UPDATE_INSTANCE_INFO" then
-        Raidlist:RefreshSavedRaids()
-
-        if Raidlist.UI
-            and Raidlist.UI:IsShown()
+        elseif event
+            == "UPDATE_INSTANCE_INFO"
         then
-            Raidlist:RefreshUI()
+            Raidlist:RefreshSavedRaids()
+
+            if Raidlist.UI
+                and Raidlist.UI:IsShown()
+            then
+                Raidlist:RefreshUI()
+            end
         end
     end
-end)
+)
