@@ -2,9 +2,10 @@
 ## Title: Raidlist
 ## Notes: Keep track of old raid lockouts for transmog and mount runs.
 ## Author: Finnchen123
-## Version: 1.0.0
+## Version: 1.4.0
 
 ## SavedVariablesPerCharacter: RaidlistDB, UsedLanguage
+## LoadSavedVariablesFirst: 1
 
 ## AddonCompartmentFunc: Raidlist_OnAddonCompartmentClick
 ## AddonCompartmentFuncOnEnter: Raidlist_OnAddonCompartmentEnter
@@ -15,8 +16,10 @@ Raids.lua
 Difficulties.lua
 Logger.lua
 Raidlist.lua
+Vendor.lua
 
 UI/MainFrame.lua
 UI/RaidList.lua
+UI/VendorButton.lua
 
 Options.lua
