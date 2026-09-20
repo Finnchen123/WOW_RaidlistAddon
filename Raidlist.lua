@@ -198,12 +198,15 @@ function Raidlist:GetRaidRows()
                     ] = true
                 end
             else
-                self.Logger:Error(
-                    "Unknown difficulty ID: "
-                    .. tostring(
-                        difficultyID
+                if difficultyID ~= 33 then
+                    self.Logger:Error(
+                        raid.Names.de ..
+                        " - Unknown difficulty ID: "
+                        .. tostring(
+                            difficultyID
+                        )
                     )
-                )
+                end
             end
         end
 
