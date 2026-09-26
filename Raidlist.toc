@@ -2,7 +2,7 @@
 ## Title: Raidlist
 ## Notes: Keep track of old raid lockouts for transmog and mount runs.
 ## Author: Finnchen123
-## Version: 1.4.0
+## Version: 1.4.1
 
 ## SavedVariablesPerCharacter: RaidlistDB, UsedLanguage
 ## LoadSavedVariablesFirst: 1

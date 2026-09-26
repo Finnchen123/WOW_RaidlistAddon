@@ -26,8 +26,8 @@ local text = {
         or "Enables the button for automatically selling matching equipment items at vendors.",
 
     expansionLabel = isGerman
-        and "Verkaufbare Erweiterung"
-        or "Sellable expansion",
+        and "Höchste verkaufbare Erweiterung"
+        or "Highest sellable expansion",
 
     expansionDescription = isGerman
         and "Legt fest, aus welcher Erweiterung Ausrüstungsgegenstände automatisch verkauft werden dürfen."

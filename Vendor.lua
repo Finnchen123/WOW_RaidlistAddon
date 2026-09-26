@@ -102,7 +102,7 @@ function Vendor:IsSellableItem(
     end
 
     if itemData.expansionID
-        ~= selectedExpansionID
+        > selectedExpansionID
     then
         return false
     end
