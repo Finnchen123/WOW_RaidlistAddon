@@ -7,6 +7,12 @@ local EQUIPMENT_CLASSES = {
     [Enum.ItemClass.Armor] = true
 }
 
+local PROTECTED_QUALITIES = {
+    [Enum.ItemQuality.Legendary] = true,
+    [Enum.ItemQuality.Artifact] = true,
+    [Enum.ItemQuality.Heirloom] = true
+}
+
 Vendor.IsSellingItems = false
 Vendor.SellQueue = nil
 Vendor.SellQueueIndex = 0
@@ -102,6 +108,12 @@ function Vendor:IsSellableItem(
     end
 
     if itemData.sellPrice <= 0 then
+        return false
+    end
+
+    if PROTECTED_QUALITIES[
+        itemData.itemQuality
+    ] then
         return false
     end
 
